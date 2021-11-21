@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<head><title>학점 계산기</title></head>
+<body>
+  <script>
+    var hak = new Array(); //학점을 저장할 배열 생성
+    var sc = new Array();
+    var i = 0;
+     //총 신청학점을 저장할 전역변수 생성
+    var subject = new Array(); //신청한 과목명을 저장할 배열 생성
+    //(이 함수는 마지막에 x나 X가 들어가있을것이므로 콜 할때 마지막 인덱스를 제외해야한다.)
+    while(true)
+    {
+      
+      subject[i] = prompt("과목명을 작성하십시오.(모두 작성했다면 X나x를 작성하세요");
+
+      if(subject[i] == 'X' || subject[i] == 'x')
+        break;
+
+      hak[i] = prompt("작성한 과목의 학점을 쓰십시오(대문자로 쓰시오)");
+      i++;
+    }
+    function Convert(h) //학점을 점수화 시킬 함수 생성
+    {
+      for(var i=0;i<h.length;i++)
+      {
+        if(h[i] == "A+")
+          h[i] = 4.5;
+        else if(h[i] == 'A')
+          h[i] = 4;
+        else if(h[i] == "B+")
+          h[i] = 3.5;
+        else if(h[i] == 'B')
+          h[i] = 3;
+        else if(h[i] == "C+")
+          h[i] = 2.5;
+        else if(h[i] == 'C')
+          h[i] = 2;
+        else if(h[i] == "D+")
+          h[i] = 1.5;
+        else if(h[i] == 'D')
+          h[i] = 1.0;
+        else if(h[i] == 'F')
+          h[i] = 0;
+      }
+      return h;
+    }
+    var score = parseInt(prompt("신청한 학점을 쓰시오"));
+    sc = Convert(hak);
+    
+    function Calc(data,sc) //수치화된 학점과 신청학점을 계산하여 평점을 계산하는 함수
+    {
+      var count = 0;
+      for(var i=0;i<data.length;i++)
+      {
+        count += data[i];
+      }
+      var result = count % sc;
+      return result;
+    }
+    var result = new Calc(sc,score); //총 평점 저장
+
+    function Eprint(s,h,r)//각각 과목명,학점,평점으로 데이터를 넣어 출력함
+    {
+      for(var i=0;i<h.length;i++)
+      {
+        document.write(s[i]+"과목의 학점은");
+        document.write(h[i]+"입니다<br>");
+      }
+      document.write("따라서 평점은"+r+"입니다");
+    }
+    Eprint(subject,hak,result);
+  </script>
+</body>
+</html>
